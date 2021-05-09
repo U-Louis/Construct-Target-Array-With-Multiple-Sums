@@ -1,0 +1,47 @@
+/**
+ * @param {number[]} target
+ * @return {boolean}
+ */
+
+function indexByValue(arr, value){
+    var index = arr.indexOf(value);
+    if(index > -1){
+        return index;
+    }
+}
+
+var isPossible = function(target) {
+    var total = target.reduce(function(a,b){return a+b}, 0);
+    
+    while(total > target.length){
+        
+        var max = Math.max(...target);
+        var indexOfMax = indexByValue(target,max);        
+        
+        total = target.reduce(function(a,b){return a+b}, 0);
+        
+        if( total == target.length){
+            return true;
+        }
+        if(total < target.length){
+            return false;
+        }
+        
+        if(max-(total-max)<1){
+            return false;
+        }
+        
+        target[indexOfMax] = max-(total-max);
+
+    }
+  
+};
+
+
+/*
+8 / 68 test cases passed.
+	Status: Time Limit Exceeded
+	
+Submitted: 1 hour, 38 minutes ago
+Last executed input: [1,1000000000]
+*/
